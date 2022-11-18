@@ -22,8 +22,8 @@ t1 <- function(u, o, n)
 {
   X = rnorm(n, u, o)
   x_barre = mean(X)
-  var_empirique = var(X)
-  return ((x_barre - u)/(var_empirique/sqrt(n)))
+  ecart_type = sd(X)
+  return ((x_barre - u)/(ecart_type/sqrt(n)))
 }
 
 x <- replicate(10000, t1(u, o, n))
