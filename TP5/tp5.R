@@ -196,3 +196,62 @@ for (lambda in c(-1, -1/2, 0, 1/3, 1/2, 1))
   print(summary(reg.lin)$r.squared)
   curve(reg.lin$coefficients[1] + reg.lin$coefficients[2] * boxcot(x, lambda), add = TRUE, col = "red")
 }
+
+#Aide pour évaluation
+
+Sreg <- function(x, y)
+{
+  reg <- lm(y~x)
+  mean((reg$fitted.values - mean(y))^2)
+}
+
+Sres <- function(x, y)
+{
+  reg <- lm(y~x)
+  mean(reg$residuals^2)
+}
+
+Stotale <- function(x, y)
+{
+  mean((y - mean(y))^2)
+}
+
+pearson <- function(x, y)
+{
+  cor(x, y, method = "pearson")
+}
+
+R2 <- function(x, y)
+{
+  reg <- lm(y~x)
+  summary(reg)$r.squared
+}
+
+#Intervalle de confiance sur a et b
+confint(reg, level = 1 - 0.05)
+
+#Intervalle de confliance en un point
+reglin <- lm(Y~X, data = RL05)
+predict(reglin, data.frame(X = c(0.1)),interval = "confidence", level = 0.95)
+
+#Intervalle de prédiction en un point
+reglin <- lm(Y~X, data = RL05)
+predict(reglin, data.frame(X = c(0.3)),interval = "prediction", level = 0.95)
+
+#Levier
+levier <- function(x, y)
+{
+  n <- length(x)
+  1/n + ((x - mean(x))^2)/sum((x - mean(x))^2)
+}
+
+#Résidu standard / student
+rstandard(reglin)
+rstudent(reglin)
+
+
+
+reg <- lm(Y~X, data = RLXX)
+confint(reg, level = 0.95)
+reg$residuals[NB]
+predict(reg, data.frame(X = c(VALEUR)), interval = "REMPLIR")
